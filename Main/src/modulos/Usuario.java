@@ -1,3 +1,5 @@
+package modulos;
+
 public class Usuario{
     private String nombre, correo, password;
     private boolean admin;
