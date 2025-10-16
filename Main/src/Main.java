@@ -1,4 +1,8 @@
 import modulos.Usuario;
+import modulos.Administrador;
+import modulos.Empleado;
+import modulos.SistemaTareas;
+import modulos.Tareas;
 
 import java.util.*;
 
