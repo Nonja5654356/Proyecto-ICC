@@ -22,7 +22,6 @@ public class Main {
         System.out.print("Eres administrador? (1 si si, 2 si no): ");
         b = scn.nextByte();
         a = b==1;
-        Usuario newUser = new Usuario(n, c, p, a);
         List<Object> list = new ArrayList<>();
         list.add(n);
         list.add(c);
@@ -56,12 +55,17 @@ public class Main {
                 byte a = scn.nextByte();
                 if(a == 1) {
                     List<Object> c = crearCuenta(scn);
+                    if(c.get(3).toString().equals("true")) {
+                        List<String> emptyString = new ArrayList<>();
+                        List<Integer> emptyList = new ArrayList<>();
+                        Administrador newUserA = new Administrador(c.get(0).toString(), c.get(1).toString(), c.get(2).toString(), true, emptyString, emptyList);
+                        newUserA.mostrarInfo();
+                    } else if (!c.get(3).toString().equals("true")) {
+                        Empleado newUserE = new Empleado(c.get(0).toString(), c.get(1).toString(), c.get(2).toString(), true);
+                    }
                     x = false;
                     String u = (String) c.get(0);
                     boolean admin = (boolean) c.get(3);
-                    if(admin){
-                        interfaz(scn, u);
-                    }System.out.println("Iralo, no es admin :(");
                 } else if(a == 2) {
                     System.out.println("Por hacer");
                     x = false;
