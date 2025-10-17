@@ -20,4 +20,19 @@ public class Administrador extends Usuario{
         this.empleados = empleados;
         this.idTareasCreadas = idTareasCreadas;
     }
+
+    @Override
+    public void mostrarInfo() {
+        super.mostrarInfo();
+        if(empleados.isEmpty()){
+            System.out.println("Actualmente no se tiene nungún empleado.");
+        }for (int i = 0; i < empleados.size(); i++) {
+            System.out.println(i + " | " + empleados.get(i));
+        }
+        if(idTareasCreadas.isEmpty()) {
+            System.out.println("No se han creado tareas.");
+        }for (int i = 0; i < idTareasCreadas.size(); i++) {
+            System.out.println("Element at index " + i + ": " + idTareasCreadas.get(i));
+        }
+    }
 }

@@ -12,21 +12,42 @@ public class Main {
         scn.nextLine();
         String n, c, p;
         byte b;
-        boolean a;
+        boolean a, x;
+        List<Object> list = new ArrayList<>();
         System.out.print("Ingresa tu nombre: ");
         n = scn.nextLine();
-        System.out.print("Ingresa tu correo: ");
-        c = scn.nextLine();
+        list.add(n);
+        x = true;
+        while(x) {
+            System.out.print("Ingresa tu correo: ");
+            c = scn.nextLine();
+            if(!(c.contains("@") && c.endsWith(".com"))){
+                System.out.println("Correo no válido, intente otra vez: ");
+            }else {
+                x = false;
+                list.add(c);
+            }
+        }
         System.out.print("Ingresa una contraseña para tu cuenta: ");
         p = scn.nextLine();
-        System.out.print("Eres administrador? (1 si si, 2 si no): ");
-        b = scn.nextByte();
-        a = b==1;
-        List<Object> list = new ArrayList<>();
-        list.add(n);
-        list.add(c);
         list.add(p);
-        list.add(a);
+        x = true;
+        while(x) {
+            try {
+                System.out.print("Seleccione su rol: \n1.- Empleado\n2.- Administrador\n");
+                b = scn.nextByte();
+                if (0 < b && b < 3) {
+                    a = b == 2;
+                    x = false;
+                    list.add(a);
+                } else {
+                    System.out.println("Número inválido, por favor ingresa un número válido (1 o 2)");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Debe ingresar un número válido (1 o 2).");
+                scn.nextLine();
+            }
+        }
         return list;
     }
 
@@ -73,10 +94,10 @@ public class Main {
                     System.out.println("Saliendo");
                     x = false;
                 } else{
-                    System.out.println("Número inválido, por favor ingresa un número válido (1 o 2)");
+                    System.out.println("Número inválido, por favor ingresa un número válido (1, 2 o 3)");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Error: Debe ingresar un número válido (1 o 2).");
+                System.out.println("Error: Debe ingresar un número válido (1, 2 o 3).");
                 scn.nextLine();
             }
         }

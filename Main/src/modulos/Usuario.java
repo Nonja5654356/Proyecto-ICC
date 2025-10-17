@@ -1,7 +1,11 @@
 package modulos;
 
+import javax.swing.plaf.synth.SynthTabbedPaneUI;
+import java.util.Scanner;
+
 public class Usuario{
-    private String nombre, correo, password;
+    private String nombre, password;
+    private final String correo;
     private boolean alta;
 
     public Usuario(){
@@ -23,5 +27,13 @@ public class Usuario{
         System.out.println("Correo : " + correo);
         System.out.println("Contraseña : " + "*".repeat(password.length()));
         System.out.println("Estado de cuenta : " + (alta ? "Dado de alta" : "No dado de alta aún"));
+    }
+
+    public void actualizarInfo(){
+        Scanner scn = new Scanner(System.in);
+        System.out.print("Ingresa tu nuevo nombre: ");
+        this.nombre = scn.nextLine();
+        System.out.println("Ingresa tu nueva contraseña: ");
+        this.password = scn.nextLine();
     }
 }
