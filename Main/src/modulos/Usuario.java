@@ -36,4 +36,9 @@ public class Usuario{
         System.out.println("Ingresa tu nueva contraseña: ");
         this.password = scn.nextLine();
     }
+
+    public void menuUsuario(){
+        System.out.println("| Checar datos personales");
+        System.out.println("#".repeat(50));
+    }
 }

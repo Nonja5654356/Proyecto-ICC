@@ -1,5 +1,4 @@
 package modulos;
-import modulos.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
