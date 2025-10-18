@@ -54,6 +54,7 @@ public class Main {
     public static void menuGeneral(boolean admin, Empleado newEmployee, Administrador newAdmin){
         System.out.println("#".repeat(50));
         System.out.println("|        Bienvenido al Sistema de Tareas         |");
+        System.out.println("#".repeat(50));
         if(admin){
             newAdmin.menuUsuario();
         } else if (!admin) {

@@ -34,4 +34,14 @@ public class Administrador extends Usuario{
             System.out.println("Element at index " + i + ": " + idTareasCreadas.get(i));
         }
     }
+
+    public void menuUsuario() {
+        System.out.println("|              Listar Empleados (1)              |");
+        System.out.println("|            Listar Tareas Creadas (2)           |");
+        System.out.println("|                 Crear Tarea (3)                |");
+        System.out.println("|                Asignar Tarea (4)               |");
+        System.out.println("|        Dar de alta a nuevo empleado (5)        |");
+        System.out.println("|           Dar de baja a empleado (6)           |");
+        super.menuUsuario(7,8);
+    }
 }

@@ -1,6 +1,5 @@
 package modulos;
 
-import javax.swing.plaf.synth.SynthTabbedPaneUI;
 import java.util.Scanner;
 
 public class Usuario{
@@ -37,8 +36,9 @@ public class Usuario{
         this.password = scn.nextLine();
     }
 
-    public void menuUsuario(){
-        System.out.println("| Checar datos personales");
+    public void menuUsuario(int a, int b){
+        System.out.println("|           Checar datos personales (" + a + ")          |");
+        System.out.println("|                Cerrar Sesión (" + b + ")               |");
         System.out.println("#".repeat(50));
     }
 }

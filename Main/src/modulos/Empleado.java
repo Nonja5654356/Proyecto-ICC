@@ -9,4 +9,9 @@ public class Empleado extends Usuario{
     public Empleado(String nombre, String correo, String password, boolean alta){
         super(nombre, correo, password, alta);
     }
+
+    public void menuUsuario() {
+        System.out.println("| Hola");
+        super.menuUsuario(2, 3);
+    }
 }
