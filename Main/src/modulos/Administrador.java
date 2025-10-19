@@ -58,7 +58,6 @@ public class Administrador extends Usuario{
         System.out.println("|                Cerrar Sesión (8)               |");
         System.out.println("#".repeat(50));
         checarDatos();
-        System.out.println(":)");
     }
 
     private void checarDatos(){
