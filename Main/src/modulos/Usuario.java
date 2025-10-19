@@ -2,7 +2,7 @@ package modulos;
 
 import java.util.Scanner;
 
-public class Usuario{
+public abstract class Usuario{
     private String nombre;
     private String password;
     private final String correo;
@@ -54,7 +54,5 @@ public class Usuario{
         setPassword(password);
     }
 
-    public void menuUsuario(){
-        System.out.println("Menu, will be overridden :)");
-    }
+    public void menuUsuario(){}
 }

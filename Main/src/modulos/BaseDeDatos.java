@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,9 +42,9 @@ public class BaseDeDatos {
         }
         String userData = user.getNombre() + "|" + user.getCorreo() + "|" + user.getPassword() + "|" + user.getAlta() + "|" + user.getTipo();
         if(user instanceof Administrador administrador){
-            userData += "|" + (!administrador.getEmpleados().isEmpty() ? String.join(",", administrador.getEmpleados()) : "") + "|" + (!administrador.getIdTareasCreadas().isEmpty() ? administrador.getIdTareasCreadas().stream().map(Object::toString).collect(Collectors.joining(",")) : "");
+            userData += "|" + (!administrador.getEmpleados().isEmpty() ? String.join(",", administrador.getEmpleados()) : " ") + "|" + (!administrador.getIdTareasCreadas().isEmpty() ? administrador.getIdTareasCreadas().stream().map(Object::toString).collect(Collectors.joining(",")) : "0") + "|";
         }else{
-            userData += "||";
+            userData += "|||";
         }
         lines.add(userData);
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(usuariosDir.toFile()))) {
@@ -53,6 +54,78 @@ public class BaseDeDatos {
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public List<String> obtenerCorreos(){
+        Path usuariosDir = Paths.get(DATABASE_DIR, "usuarios.txt");
+        List<String> lines = new ArrayList<>();
+        List<String> correos = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(usuariosDir.toFile()))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        for (String data : lines) {
+            String[] parts = data.split("\\|");
+            correos.add(parts[1]);
+        }
+        return correos;
+    }
+
+    public String obtenerPassword(int x){
+        Path usuariosDir = Paths.get(DATABASE_DIR, "usuarios.txt");
+        List<String> lines = new ArrayList<>();
+        List<String> passwords = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(usuariosDir.toFile()))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        for (String data : lines) {
+            String[] parts = data.split("\\|");
+            passwords.add(parts[2]);
+        }
+        return passwords.get(x);
+    }
+
+    public Usuario obtenerUsuario(String correo){
+        int x = -1;
+        Path usuariosDir = Paths.get(DATABASE_DIR, "usuarios.txt");
+        List<String> lines = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(usuariosDir.toFile()))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        for(int i=0; i<lines.size();i++){
+            String data = lines.get(i);
+            String[] parts = data.split("\\|");
+            if(parts[1].equals(correo)){
+                x = i;
+                break;
+            }
+        }
+        if(x==-1){
+            return new Empleado();
+        }
+        String[] datos = lines.get(x).split("\\|");
+        if(Boolean.parseBoolean(datos[4])){
+            String[] empleados = datos[5].split(",");
+            List<String> listaEmpleados = new ArrayList<>(List.of(empleados));
+            List<Integer> listaTareas = (datos.length==7) ? Arrays.stream(datos[6].split(",")).map(String::trim).map(Integer::parseInt).collect(Collectors.toList()) : new ArrayList<>();
+            return new Administrador(datos[0], datos[1], datos[2], Boolean.parseBoolean(datos[3]), listaEmpleados, listaTareas);
+        }else{
+            return new Empleado(datos[0], datos[1], datos[2], Boolean.parseBoolean(datos[3]));
         }
     }
 }

@@ -51,7 +51,50 @@ public class Main {
         }
     }
 
-    public static void logIn(Scanner scn){
+    public static Usuario iniciarSesion(Scanner scn, BaseDeDatos baseDeDatos){
+        scn.nextLine();
+        String n="", p, expectedPassword="";
+        boolean x = true;
+        boolean existe = false;
+        System.out.println("#".repeat(50));
+        System.out.println("|                Inicio de sesión                |");
+        System.out.println("#".repeat(50));
+        while(x) {
+            System.out.print("| Ingrese su correo: ");
+            n = scn.nextLine();
+            List<String> correos = baseDeDatos.obtenerCorreos();
+            for (int i = 0; i < correos.size(); i++) {
+                if (correos.get(i).equals(n)) {
+                    expectedPassword = baseDeDatos.obtenerPassword(i);
+                    existe = true;
+                    break;
+                }
+            }
+            if (existe) {
+                x = false;
+            } else {
+                System.out.println("# Correo incorrecto o no existente, intente otra vez.");
+            }
+        }
+        int intentos = 0;
+        while(intentos<3) {
+            System.out.print("| Ingrese su conteaseña: ");
+            p = scn.nextLine();
+            if (p.equals(expectedPassword)) {
+                System.out.println("| Iniciando sesión...");
+                return baseDeDatos.obtenerUsuario(n);
+            }else{
+                System.out.println("# Contraseña incorrecta, intente otra vez.");
+                intentos++;
+            }
+        }if(intentos==3){
+            System.out.println("# Demasiados intentos, inténtelo más tarde.");
+            return new Empleado();
+        }
+        return new Empleado();
+    }
+
+    public static void logIn(Scanner scn, BaseDeDatos baseDeDatos){
         System.out.println("#".repeat(50));
         System.out.println("|" + " ".repeat(14) + "Ingresar al sistema" + " ".repeat(15) + "|");
         System.out.println("#".repeat(50));
@@ -65,12 +108,24 @@ public class Main {
             try {
                 byte a = scn.nextByte();
                 if(a == 1) {
+                    x = false;
                     Usuario newUser = crearCuenta(scn);
                     newUser.menuUsuario();
-                    x = false;
                 } else if(a == 2) {
-                    System.out.println("Por hacer");
                     x = false;
+                    Usuario newUser = iniciarSesion(scn, baseDeDatos);
+                    if(newUser.getCorreo().equals("correo@correo.com")){
+                        x=true;
+                        System.out.println("#".repeat(50));
+                        System.out.println("|" + " ".repeat(14) + "Ingresar al sistema" + " ".repeat(15) + "|");
+                        System.out.println("#".repeat(50));
+                        System.out.println("|" + " ".repeat(16) + "Crear Cuenta (1)" + " ".repeat(16) + "|");
+                        System.out.println("|" + " ".repeat(18) + "Ingresar (2)" + " ".repeat(18) + "|");
+                        System.out.println("|" + " ".repeat(20) + "Salir (3)" + " ".repeat(19) + "|");
+                        System.out.println("#".repeat(50));
+                    }else {
+                        newUser.menuUsuario();
+                    }
                 } else if(a == 3){
                     System.out.println("Saliendo");
                     x = false;
@@ -89,6 +144,6 @@ public class Main {
         Scanner scn = new Scanner(System.in);
         BaseDeDatos baseDeDatos = new BaseDeDatos();
         baseDeDatos.iniciarBaseDeDatos();
-        logIn(scn);
+        logIn(scn, baseDeDatos);
     }
 }
