@@ -1,23 +1,17 @@
-import modulos.Administrador;
-import modulos.Empleado;
-import modulos.SistemaTareas;
-import modulos.Tareas;
+import modulos.*;
 
 import java.util.*;
 
 public class Main {
 
-    public static List<Object> crearCuenta(Scanner scn){
+    public static Usuario crearCuenta(Scanner scn){
         scn.nextLine();
-        String n, c, p;
+        String n=" ", c=" ", p=" ";
         byte b;
-        boolean a, x;
-        List<Object> list = new ArrayList<>();
+        boolean a = false, x = true;
         System.out.println("#".repeat(50) + "\n|" + " ".repeat(18) + "Crear Cuenta" + " ".repeat(18) + "|\n" + "#".repeat(50));
         System.out.print("| Ingrese su nombre: ");
         n = scn.nextLine();
-        list.add(n);
-        x = true;
         while(x) {
             System.out.print("| Ingrese su correo: ");
             c = scn.nextLine();
@@ -25,12 +19,10 @@ public class Main {
                 System.out.println("# Correo inválido, intente otra vez: ");
             }else {
                 x = false;
-                list.add(c);
             }
         }
         System.out.print("| Ingrese una contraseña para su cuenta: ");
         p = scn.nextLine();
-        list.add(p);
         x = true;
         while(x) {
             try {
@@ -39,7 +31,6 @@ public class Main {
                 if (0 < b && b < 3) {
                     a = b == 2;
                     x = false;
-                    list.add(a);
                 } else {
                     System.out.println("# Número inválido, por favor ingresa un número válido (1 o 2)");
                 }
@@ -48,17 +39,10 @@ public class Main {
                 scn.nextLine();
             }
         }
-        return list;
-    }
-
-    public static void menuGeneral(boolean admin, Empleado newEmployee, Administrador newAdmin){
-        System.out.println("#".repeat(50));
-        System.out.println("|        Bienvenido al Sistema de Tareas         |");
-        System.out.println("#".repeat(50));
-        if(admin){
-            newAdmin.menuUsuario();
-        } else if (!admin) {
-            newEmployee.menuUsuario();
+        if(a){
+            return new Administrador(n, c, p, true, new ArrayList<>(), new ArrayList<>());
+        }else{
+            return new Empleado(n, c, p, true);
         }
     }
 
@@ -76,16 +60,8 @@ public class Main {
             try {
                 byte a = scn.nextByte();
                 if(a == 1) {
-                    List<Object> c = crearCuenta(scn);
-                    if(c.get(3).toString().equals("true")) {
-                        List<String> emptyString = new ArrayList<>();
-                        List<Integer> emptyList = new ArrayList<>();
-                        Administrador newUser = new Administrador(c.get(0).toString(), c.get(1).toString(), c.get(2).toString(), true, emptyString, emptyList);
-                        menuGeneral(true, new Empleado(), newUser);
-                    } else if (!c.get(3).toString().equals("true")) {
-                        Empleado newUser = new Empleado(c.get(0).toString(), c.get(1).toString(), c.get(2).toString(), true);
-                        menuGeneral(false, newUser, new Administrador());
-                    }
+                    Usuario newUser = crearCuenta(scn);
+                    newUser.menuUsuario();
                     x = false;
                 } else if(a == 2) {
                     System.out.println("Por hacer");

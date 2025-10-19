@@ -3,22 +3,46 @@ package modulos;
 import java.util.Scanner;
 
 public class Usuario{
-    private String nombre, password;
+    private String nombre;
+    private String password;
     private final String correo;
     private boolean alta;
+    final boolean tipo;
 
     public Usuario(){
         this.nombre = "Aeaea ioioioi uuu";
         this.correo = "correo@correo.com";
         this.password = "12345";
         this.alta = false;
+        this.tipo = false;
     }
 
-    public Usuario(String nombre, String correo, String password, boolean alta) {
+    public Usuario(String nombre, String correo, String password, boolean alta, boolean tipo) {
         this.nombre = nombre;
         this.correo = correo;
         this.password = password;
         this.alta  = alta;
+        this.tipo = tipo;
+    }
+
+    //getters
+    public boolean getTipo(){return tipo;}
+    public String getNombre(){return nombre;}
+    public String getCorreo(){return correo;}
+    public String getPassword(){return password;}
+    public boolean getalta(){return alta;}
+
+    //setters
+    public void setNombre(String nombre){
+        this.nombre = nombre;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
+    }
+
+    public void setAlta(boolean alta){
+        this.alta = alta;
     }
 
     public void mostrarInfo(){
@@ -36,9 +60,7 @@ public class Usuario{
         this.password = scn.nextLine();
     }
 
-    public void menuUsuario(int a, int b){
-        System.out.println("|           Checar datos personales (" + a + ")          |");
-        System.out.println("|                Cerrar Sesión (" + b + ")               |");
-        System.out.println("#".repeat(50));
+    public void menuUsuario(){
+        System.out.println("Menu, will be overridden :)");
     }
 }

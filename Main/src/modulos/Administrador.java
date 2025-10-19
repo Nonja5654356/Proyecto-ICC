@@ -15,7 +15,7 @@ public class Administrador extends Usuario{
     }
 
     public Administrador(String nombre, String correo, String password, boolean alta, List<String> empleados, List<Integer> idTareasCreadas){
-        super(nombre, correo, password, alta);
+        super(nombre, correo, password, alta, true);
         this.empleados = empleados;
         this.idTareasCreadas = idTareasCreadas;
     }
@@ -35,13 +35,19 @@ public class Administrador extends Usuario{
         }
     }
 
+    @Override
     public void menuUsuario() {
+        System.out.println("#".repeat(50));
+        System.out.println("|        Bienvenido al Sistema de Tareas         |");
+        System.out.println("#".repeat(50));
         System.out.println("|              Listar Empleados (1)              |");
         System.out.println("|            Listar Tareas Creadas (2)           |");
         System.out.println("|                 Crear Tarea (3)                |");
         System.out.println("|                Asignar Tarea (4)               |");
         System.out.println("|        Dar de alta a nuevo empleado (5)        |");
         System.out.println("|           Dar de baja a empleado (6)           |");
-        super.menuUsuario(7,8);
+        System.out.println("|           Checar datos personales (7)          |");
+        System.out.println("|                Cerrar Sesión (8)               |");
+        System.out.println("#".repeat(50));
     }
 }

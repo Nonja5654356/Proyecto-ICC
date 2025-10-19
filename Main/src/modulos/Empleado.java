@@ -7,11 +7,17 @@ public class Empleado extends Usuario{
     }
 
     public Empleado(String nombre, String correo, String password, boolean alta){
-        super(nombre, correo, password, alta);
+        super(nombre, correo, password, alta, false);
     }
 
+    @Override
     public void menuUsuario() {
+        System.out.println("#".repeat(50));
+        System.out.println("|        Bienvenido al Sistema de Tareas         |");
+        System.out.println("#".repeat(50));
         System.out.println("| Hola");
-        super.menuUsuario(2, 3);
+        System.out.println("|           Checar datos personales (2)          |");
+        System.out.println("|                Cerrar Sesión (3)               |");
+        System.out.println("#".repeat(50));
     }
 }
