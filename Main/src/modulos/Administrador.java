@@ -20,6 +20,14 @@ public class Administrador extends Usuario{
         this.idTareasCreadas = idTareasCreadas;
     }
 
+    //getters
+    public List<String> getEmpleados(){return empleados;}
+    public List<Integer> getIdTareasCreadas(){return idTareasCreadas;}
+
+    //setters
+    public void setEmpleados(List<String> empleados){this.empleados = empleados;}
+    public void setIdTareasCreadas(List<Integer> idTareasCreadas){this.idTareasCreadas = idTareasCreadas;}
+
     @Override
     public void mostrarInfo() {
         super.mostrarInfo();
@@ -49,5 +57,12 @@ public class Administrador extends Usuario{
         System.out.println("|           Checar datos personales (7)          |");
         System.out.println("|                Cerrar Sesión (8)               |");
         System.out.println("#".repeat(50));
+        checarDatos();
+    }
+
+    private void checarDatos(){
+        mostrarInfo();
+        actualizarInfo();
+        setAlta(true);
     }
 }

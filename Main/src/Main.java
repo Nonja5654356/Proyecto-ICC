@@ -6,9 +6,10 @@ public class Main {
 
     public static Usuario crearCuenta(Scanner scn){
         scn.nextLine();
-        String n=" ", c=" ", p=" ";
+        String n, c=" ", p;
         byte b;
         boolean a = false, x = true;
+        BaseDeDatos baseDeDatos = new BaseDeDatos();
         System.out.println("#".repeat(50) + "\n|" + " ".repeat(18) + "Crear Cuenta" + " ".repeat(18) + "|\n" + "#".repeat(50));
         System.out.print("| Ingrese su nombre: ");
         n = scn.nextLine();
@@ -40,9 +41,13 @@ public class Main {
             }
         }
         if(a){
-            return new Administrador(n, c, p, true, new ArrayList<>(), new ArrayList<>());
+            Administrador newUser = new Administrador(n, c, p, true, new ArrayList<>(), new ArrayList<>());
+            baseDeDatos.guardarUsuario(newUser);
+            return newUser;
         }else{
-            return new Empleado(n, c, p, true);
+            Empleado newUser = new Empleado(n, c, p, true);
+            baseDeDatos.guardarUsuario(newUser);
+            return newUser;
         }
     }
 
@@ -82,6 +87,8 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scn = new Scanner(System.in);
+        BaseDeDatos baseDeDatos = new BaseDeDatos();
+        baseDeDatos.iniciarBaseDeDatos();
         logIn(scn);
     }
 }

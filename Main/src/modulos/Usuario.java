@@ -30,20 +30,12 @@ public class Usuario{
     public String getNombre(){return nombre;}
     public String getCorreo(){return correo;}
     public String getPassword(){return password;}
-    public boolean getalta(){return alta;}
+    public boolean getAlta(){return alta;}
 
     //setters
-    public void setNombre(String nombre){
-        this.nombre = nombre;
-    }
-
-    public void setPassword(String password){
-        this.password = password;
-    }
-
-    public void setAlta(boolean alta){
-        this.alta = alta;
-    }
+    public void setNombre(String nombre){this.nombre = nombre;}
+    public void setPassword(String password){this.password = password;}
+    public void setAlta(boolean alta){this.alta = alta;}
 
     public void mostrarInfo(){
         System.out.println("Nombre : " + nombre);
@@ -55,9 +47,11 @@ public class Usuario{
     public void actualizarInfo(){
         Scanner scn = new Scanner(System.in);
         System.out.print("Ingresa tu nuevo nombre: ");
-        this.nombre = scn.nextLine();
+        String nombre = scn.nextLine();
+        setNombre(nombre);
         System.out.println("Ingresa tu nueva contraseña: ");
-        this.password = scn.nextLine();
+        password = scn.nextLine();
+        setPassword(password);
     }
 
     public void menuUsuario(){
