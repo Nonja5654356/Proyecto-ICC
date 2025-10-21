@@ -129,10 +129,10 @@ public class Main {
                     System.out.println("Saliendo");
                     x = false;
                 } else{
-                    System.out.println("# Número inválido, por favor ingresa un número válido (1, 2 o 3)");
+                    System.out.println("# Número inválido, por favor ingrese un número válido (1, 2 ó 3)");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("# Error: Debe ingresar un número válido (1, 2 o 3).");
+                System.out.println("# Error: Debe ingresar un número válido (1, 2 ó 3).");
                 scn.nextLine();
             }
         }
