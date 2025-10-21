@@ -9,7 +9,7 @@ public class Tareas {
     public Tareas(){
         this.id = 0;
         this.nombre = "Empty";
-        this.descripcion = "No desription";
+        this.descripcion = "No description";
         this.fechaEntrega = new int[3];
         this.estado = false;
     }
