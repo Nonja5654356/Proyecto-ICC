@@ -5,13 +5,21 @@ public class Main {
 
     public static Usuario crearCuenta(Scanner scn){
         scn.nextLine();
-        String n, c=" ", p;
+        String n=" ", c=" ", p;
         byte b;
         boolean a = false, x = true;
         BaseDeDatos baseDeDatos = new BaseDeDatos();
         System.out.println("#".repeat(50) + "\n|" + " ".repeat(18) + "Crear Cuenta" + " ".repeat(18) + "|\n" + "#".repeat(50));
-        System.out.print("| Ingrese su nombre: ");
-        n = scn.nextLine();
+        while(x) {
+            System.out.print("| Ingrese su nombre: ");
+            n = scn.nextLine();
+            if(n.isEmpty()){
+                System.out.println("# Nombre inválido, intente otra vez: ");
+            }else {
+                x = false;
+            }
+        }
+        x = true;
         while(x) {
             System.out.print("| Ingrese su correo: ");
             c = scn.nextLine();
