@@ -30,3 +30,7 @@ bin/
 
 ### .idea ###
 ../.idea/
+.idea/
+
+### Main.iml ###
+Main.iml
