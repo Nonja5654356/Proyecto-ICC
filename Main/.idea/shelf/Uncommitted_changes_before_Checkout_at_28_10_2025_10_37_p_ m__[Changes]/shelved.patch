@@ -1,0 +1,43 @@
+Index: src/modulos/Administrador.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package modulos;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\n//In this file is where the admin things go, explained on the README.md\r\npublic class Administrador extends Usuario{\r\n    private List<String> empleados;\r\n    private List<Integer> idTareasCreadas;\r\n\r\n    public Administrador(){\r\n        super();\r\n        this.empleados =  new ArrayList<>();\r\n        this.idTareasCreadas =  new ArrayList<>();\r\n    }\r\n\r\n    public Administrador(String nombre, String correo, String password, boolean alta, List<String> empleados, List<Integer> idTareasCreadas){\r\n        super(nombre, correo, password, alta, true);\r\n        this.empleados = empleados;\r\n        this.idTareasCreadas = idTareasCreadas;\r\n    }\r\n\r\n    //getters\r\n    public List<String> getEmpleados(){return empleados;}\r\n    public List<Integer> getIdTareasCreadas(){return idTareasCreadas;}\r\n\r\n    //setters\r\n    public void setEmpleados(List<String> empleados){this.empleados = empleados;}\r\n    public void setIdTareasCreadas(List<Integer> idTareasCreadas){this.idTareasCreadas = idTareasCreadas;}\r\n\r\n    @Override\r\n    public void mostrarInfo() {\r\n        super.mostrarInfo();\r\n        if(empleados.isEmpty()){\r\n            System.out.println(\"Actualmente no se tiene nungún empleado.\");\r\n        }for (int i = 0; i < empleados.size(); i++) {\r\n            System.out.println(i + \" | \" + empleados.get(i));\r\n        }\r\n        if(idTareasCreadas.isEmpty()) {\r\n            System.out.println(\"No se han creado tareas.\");\r\n        }for (int i = 0; i < idTareasCreadas.size(); i++) {\r\n            System.out.println(\"Element at index \" + i + \": \" + idTareasCreadas.get(i));\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void menuUsuario() {\r\n        System.out.println(\"#\".repeat(50));\r\n        System.out.println(\"|        Bienvenido al Sistema de Tareas         |\");\r\n        System.out.println(\"#\".repeat(50));\r\n        System.out.println(\"|              Listar Empleados (1)              |\");\r\n        System.out.println(\"|            Listar Tareas Creadas (2)           |\");\r\n        System.out.println(\"|                 Crear Tarea (3)                |\");\r\n        System.out.println(\"|                Asignar Tarea (4)               |\");\r\n        System.out.println(\"|        Dar de alta a nuevo empleado (5)        |\");\r\n        System.out.println(\"|           Dar de baja a empleado (6)           |\");\r\n        System.out.println(\"|           Checar datos personales (7)          |\");\r\n        System.out.println(\"|                Cerrar Sesión (8)               |\");\r\n        System.out.println(\"#\".repeat(50));\r\n    }\r\n\r\n    private void checarDatos(){\r\n        mostrarInfo();\r\n        actualizarInfo();\r\n        setAlta(true);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/modulos/Administrador.java b/src/modulos/Administrador.java
+--- a/src/modulos/Administrador.java	(revision 758ee35d41f74f5c0fc377d995c512c06c0e7577)
++++ b/src/modulos/Administrador.java	(date 1761712550153)
+@@ -57,6 +57,7 @@
+         System.out.println("|           Checar datos personales (7)          |");
+         System.out.println("|                Cerrar Sesión (8)               |");
+         System.out.println("#".repeat(50));
++        System.out.println("Hola");
+     }
+ 
+     private void checarDatos(){
+Index: .gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>### IntelliJ IDEA ###\r\nout/\r\n!**/src/main/**/out/\r\n!**/src/test/**/out/\r\n\r\n### Eclipse ###\r\n.apt_generated\r\n.classpath\r\n.factorypath\r\n.project\r\n.settings\r\n.springBeans\r\n.sts4-cache\r\nbin/\r\n!**/src/main/**/bin/\r\n!**/src/test/**/bin/\r\n\r\n### NetBeans ###\r\n/nbproject/private/\r\n/nbbuild/\r\n/dist/\r\n/nbdist/\r\n/.nb-gradle/\r\n\r\n### VS Code ###\r\n.vscode/\r\n\r\n### Mac OS ###\r\n.DS_Store\r\n\r\n### .idea ###\r\n../.idea/\r\n.idea/\r\n\r\n### Main.iml ###\r\nMain.iml
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.gitignore b/.gitignore
+--- a/.gitignore	(revision 758ee35d41f74f5c0fc377d995c512c06c0e7577)
++++ b/.gitignore	(date 1761712550000)
+@@ -26,11 +26,4 @@
+ .vscode/
+ 
+ ### Mac OS ###
+-.DS_Store
+-
+-### .idea ###
+-../.idea/
+-.idea/
+-
+-### Main.iml ###
+-Main.iml
+\ No newline at end of file
++.DS_Store
+\ No newline at end of file

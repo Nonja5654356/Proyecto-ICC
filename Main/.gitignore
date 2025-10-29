@@ -27,10 +27,3 @@ bin/
 
 ### Mac OS ###
 .DS_Store
-
-### .idea ###
-../.idea/
-.idea/
-
-### Main.iml ###
-Main.iml
