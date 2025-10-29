@@ -28,10 +28,10 @@ public class SistemaTareas {
     }
     private void setTareas(){
         BaseDeDatos baseDeDatos = new BaseDeDatos();
-        this.tareas = baseDeDatos.obtenerTareas();
+        //this.tareas = baseDeDatos.obtenerTareas();
     }
     private void setAsignaciones(){
         BaseDeDatos baseDeDatos = new BaseDeDatos();
-        this.asignaciones = baseDeDatos.obtenerAsignaciones();
+        //this.asignaciones = baseDeDatos.obtenerAsignaciones();
     }
 }

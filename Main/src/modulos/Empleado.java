@@ -32,10 +32,10 @@ public class Empleado extends Usuario{
                 byte a = scn.nextByte();
                 if(a == 1) {
                     x = false;
-                    checarTareas();
+                    //checarTareas();
                 } else if(a == 2) {
                     x = false;
-                    actualizarTarea();
+                    //actualizarTarea();
                 } else if(a == 3) {
                     x = false;
                     mostrarInfo();
