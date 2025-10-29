@@ -154,4 +154,26 @@ public class BaseDeDatos {
             throw new RuntimeException(e);
         }
     }
+
+    public List<String> obtenerEmpleados(){
+        Path usuariosDir = Paths.get(DATABASE_DIR, "usuarios.txt");
+        List<String> lines = new ArrayList<>();
+        List<String> empleados = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(usuariosDir.toFile()))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        for (String data : lines) {
+            String[] parts = data.split("\\|");
+            if(!Boolean.parseBoolean(parts[4])) {
+                empleados.add(parts[1]);
+            }
+        }
+
+        return empleados;
+    }
 }

@@ -41,7 +41,7 @@ public class Empleado extends Usuario{
                     mostrarInfo();
                 } else if (a == 4) {
                     x = false;
-                    cerrarSesion();
+                    System.out.println("# Cerrando Sesión...");
                 } else {
                     System.out.println("# Número inválido, por favor ingrese un número válido (1,2,3 ó 4).");
                 }

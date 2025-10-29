@@ -10,6 +10,12 @@ public class SistemaTareas {
     private List<Integer> tareas;
     private Map<String, List<Integer>> asignaciones;
 
+    public SistemaTareas(){
+        setEmpleados();
+        setTareas();
+        setAsignaciones();
+    }
+
     //getters
     public List<String> getEmpleados(){return empleados;}
     public List<Integer> getTareas(){return tareas;}
@@ -18,7 +24,7 @@ public class SistemaTareas {
     //setters
     private void setEmpleados(){
         BaseDeDatos baseDeDatos = new BaseDeDatos();
-        this.empleados = baseDeDatos.obtenerUsuarios();
+        this.empleados = baseDeDatos.obtenerEmpleados();
     }
     private void setTareas(){
         BaseDeDatos baseDeDatos = new BaseDeDatos();

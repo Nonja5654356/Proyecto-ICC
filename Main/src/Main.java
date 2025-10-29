@@ -101,7 +101,7 @@ public class Main {
         return new Empleado();
     }
 
-    public static void logIn(Scanner scn, BaseDeDatos baseDeDatos){
+    public static boolean logIn(Scanner scn, BaseDeDatos baseDeDatos){
         System.out.println("#".repeat(50));
         System.out.println("|" + " ".repeat(14) + "Ingresar al sistema" + " ".repeat(15) + "|");
         System.out.println("#".repeat(50));
@@ -123,19 +123,14 @@ public class Main {
                     Usuario newUser = iniciarSesion(scn, baseDeDatos);
                     if(newUser.getCorreo().equals("correo@correo.com")){
                         x=true;
-                        System.out.println("#".repeat(50));
-                        System.out.println("|" + " ".repeat(14) + "Ingresar al sistema" + " ".repeat(15) + "|");
-                        System.out.println("#".repeat(50));
-                        System.out.println("|" + " ".repeat(16) + "Crear Cuenta (1)" + " ".repeat(16) + "|");
-                        System.out.println("|" + " ".repeat(18) + "Ingresar (2)" + " ".repeat(18) + "|");
-                        System.out.println("|" + " ".repeat(20) + "Salir (3)" + " ".repeat(19) + "|");
-                        System.out.println("#".repeat(50));
+                        return true;
                     }else {
                         newUser.menuUsuario();
                     }
                 } else if(a == 3){
-                    System.out.println("Saliendo");
+                    System.out.println("# Saliendo...");
                     x = false;
+                    return false;
                 } else{
                     System.out.println("# Número inválido, por favor ingrese un número válido (1, 2 ó 3)");
                 }
@@ -144,15 +139,19 @@ public class Main {
                 scn.nextLine();
             }
         }
-
+        return true;
     }
 
     public static void main(String[] args) {
+        boolean x = true;
         Scanner scn = new Scanner(System.in);
         BaseDeDatos baseDeDatos = new BaseDeDatos();
         baseDeDatos.iniciarBaseDeDatos();
-        Tareas tarea = new Tareas(0, "Test", "sdkjhsd", new int[]{1,2,3} , false);
-        baseDeDatos.guardarTarea(tarea);
-        logIn(scn, baseDeDatos);
+        SistemaTareas sistemaTareas = new SistemaTareas();
+        List<String> empleados = sistemaTareas.getEmpleados();
+        System.out.println(empleados);
+        while(x) {
+            x = logIn(scn, baseDeDatos);
+        }
     }
 }
