@@ -151,6 +151,8 @@ public class Main {
         Scanner scn = new Scanner(System.in);
         BaseDeDatos baseDeDatos = new BaseDeDatos();
         baseDeDatos.iniciarBaseDeDatos();
+        Tareas tarea = new Tareas(0, "Test", "sdkjhsd", new int[]{1,2,3} , false);
+        baseDeDatos.guardarTarea(tarea);
         logIn(scn, baseDeDatos);
     }
 }

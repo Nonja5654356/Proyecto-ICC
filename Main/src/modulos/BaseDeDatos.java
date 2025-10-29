@@ -128,4 +128,30 @@ public class BaseDeDatos {
             return new Empleado(datos[0], datos[1], datos[2], Boolean.parseBoolean(datos[3]));
         }
     }
+
+    public void guardarTarea(Tareas tarea) {
+        Path tareasDir = Paths.get(DATABASE_DIR, "tareas.txt");
+        List<String> lines = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(tareasDir.toFile()))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String fechaEntrega = Arrays.toString(tarea.getFechaEntrega());
+        fechaEntrega = fechaEntrega.substring(1, fechaEntrega.length() - 1);
+        String datosTarea = tarea.getId() + "|" + tarea.getNombre() + "|" + tarea.getDescripcion() + "|" + fechaEntrega + "|" + tarea.getEstado();
+        lines.add(datosTarea);
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(tareasDir.toFile()))) {
+            for (String line : lines) {
+                bw.write(line);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
