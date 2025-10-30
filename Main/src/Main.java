@@ -3,34 +3,48 @@ import java.util.*;
 
 public class Main {
 
-    public static Usuario crearCuenta(Scanner scn){
+    public static Usuario crearCuenta(Scanner scn) {
         scn.nextLine();
-        String n=" ", c=" ", p;
+        String n = " ", c = " ", p = " ";
         byte b;
         boolean a = false, x = true;
         BaseDeDatos baseDeDatos = new BaseDeDatos();
         System.out.println("#".repeat(50) + "\n|" + " ".repeat(18) + "Crear Cuenta" + " ".repeat(18) + "|\n" + "#".repeat(50));
-        while(x) {
+        while (x) {
             System.out.print("| Ingrese su nombre: ");
             n = scn.nextLine();
-            if(n.isEmpty()){
+            if (n.isEmpty()) {
                 System.out.println("# Nombre inválido, intente otra vez: ");
-            }else {
+            } else if (!n.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) {
+                System.out.println("# El nombre solo puede contener letras y espacios, intente otra vez: ");
+            } else {
                 x = false;
             }
         }
         x = true;
-        while(x) {
+        while (x) {
             System.out.print("| Ingrese su correo: ");
             c = scn.nextLine();
-            if(!(c.contains("@") && c.endsWith(".com"))){
+            if (!(c.contains("@") && c.endsWith(".com"))) {
                 System.out.println("# Correo inválido, intente otra vez: ");
-            }else {
+            } else {
                 x = false;
             }
         }
-        System.out.print("| Ingrese una contraseña para su cuenta: ");
-        p = scn.nextLine();
+        x = true;
+        while (x) {
+            System.out.print("| Ingrese una contraseña para su cuenta: ");
+            p = scn.nextLine();
+            if (p.isEmpty()) {
+                System.out.println("# La contraseña no puede estar vacía. Intente otra vez: ");
+            } else if (p.contains(" ")) {
+                System.out.println("# La contraseña no puede contener espacios. Intente otra vez: ");
+            } else if (p.length() < 7) {
+                System.out.println("# La contraseña debe tener al menos 8 caracteres. Intente otra vez: ");
+            } else {
+                x = false;
+            }
+        }
         x = true;
         while(x) {
             try {
