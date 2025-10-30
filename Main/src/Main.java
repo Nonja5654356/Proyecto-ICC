@@ -142,7 +142,7 @@ public class Main {
         return true;
     }
 
-    public static void main(String[] args) {
+    static void main() {
         boolean x = true;
         Scanner scn = new Scanner(System.in);
         BaseDeDatos baseDeDatos = new BaseDeDatos();
