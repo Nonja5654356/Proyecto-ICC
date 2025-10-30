@@ -7,7 +7,7 @@ import java.util.Map;
 //In this file is where the chores system is on, explained on the README.md
 public class SistemaTareas {
     private List<String> empleados;
-    private List<Integer> tareas;
+    private List<Tareas> tareas;
     private Map<String, List<Integer>> asignaciones;
 
     public SistemaTareas(){
@@ -18,7 +18,7 @@ public class SistemaTareas {
 
     //getters
     public List<String> getEmpleados(){return empleados;}
-    public List<Integer> getTareas(){return tareas;}
+    public List<Tareas> getTareas(){return tareas;}
     public Map<String, List<Integer>> getAsignaciones(){return asignaciones;}
 
     //setters
@@ -28,10 +28,10 @@ public class SistemaTareas {
     }
     private void setTareas(){
         BaseDeDatos baseDeDatos = new BaseDeDatos();
-        //this.tareas = baseDeDatos.obtenerTareas();
+        this.tareas = baseDeDatos.obtenerTareas();
     }
     private void setAsignaciones(){
         BaseDeDatos baseDeDatos = new BaseDeDatos();
-        //this.asignaciones = baseDeDatos.obtenerAsignaciones();
+        this.asignaciones = baseDeDatos.obtenerAsignaciones();
     }
 }

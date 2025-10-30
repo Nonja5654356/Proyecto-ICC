@@ -3,9 +3,7 @@ package modulos;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class BaseDeDatos {
@@ -155,6 +153,31 @@ public class BaseDeDatos {
         }
     }
 
+    public List<Tareas> obtenerTareas(){
+        Path usuariosDir = Paths.get(DATABASE_DIR, "tareas.txt");
+        List<String> lines = new ArrayList<>();
+        List<Tareas> listaTareas = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(usuariosDir.toFile()))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        for (String data : lines) {
+            String[] parts = data.split("\\|");
+            String[] tareasAsignadas = parts[3].split(",");
+            int[] tareasArray = new int[tareasAsignadas.length];
+            for (int i = 0; i < tareasAsignadas.length; i++) {
+                tareasArray[i] = Integer.parseInt(tareasAsignadas[i].trim()); // .trim() removes leading/trailing spaces
+            }
+            Tareas tarea = new Tareas(Integer.parseInt(parts[0]), parts[1], parts[2], tareasArray, Boolean.parseBoolean(parts[3]));
+            listaTareas.add(tarea);
+        }
+        return listaTareas;
+    }
+
     public List<String> obtenerEmpleados(){
         Path usuariosDir = Paths.get(DATABASE_DIR, "usuarios.txt");
         List<String> lines = new ArrayList<>();
@@ -175,5 +198,52 @@ public class BaseDeDatos {
         }
 
         return empleados;
+    }
+
+    public void guardarAsignacion(String correo, int id) {
+        int x = -1;
+        Path usuariosDir = Paths.get(DATABASE_DIR, "asignaciones.txt");
+        List<String> lines = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(usuariosDir.toFile()))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        for(int i=0; i<lines.size();i++){
+            String data = lines.get(i);
+            String[] parts = data.split("\\|");
+            if(parts[0].equals(correo)){
+                x = i;
+                break;
+            }
+        }
+
+        if(x>=0){
+            String actualizar = lines.get(x);
+            actualizar = actualizar + ", " + id;
+            lines.set(x,actualizar);
+        }else{
+            String asignacion = correo + "|" + id;
+            lines.add(asignacion);
+        }
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(usuariosDir.toFile()))) {
+            for (String line : lines) {
+                bw.write(line);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Map<String, List<Integer>> obtenerAsignaciones(){
+        //POR HACER
+        return new HashMap<>();
     }
 }

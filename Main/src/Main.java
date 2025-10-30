@@ -102,7 +102,7 @@ public class Main {
     }
 
     public static boolean logIn(Scanner scn, BaseDeDatos baseDeDatos){
-        System.out.println("#".repeat(50));
+        IO.println("#".repeat(50));
         System.out.println("|" + " ".repeat(14) + "Ingresar al sistema" + " ".repeat(15) + "|");
         System.out.println("#".repeat(50));
         System.out.println("|" + " ".repeat(16) + "Crear Cuenta (1)" + " ".repeat(16) + "|");
@@ -147,9 +147,6 @@ public class Main {
         Scanner scn = new Scanner(System.in);
         BaseDeDatos baseDeDatos = new BaseDeDatos();
         baseDeDatos.iniciarBaseDeDatos();
-        SistemaTareas sistemaTareas = new SistemaTareas();
-        List<String> empleados = sistemaTareas.getEmpleados();
-        System.out.println(empleados);
         while(x) {
             x = logIn(scn, baseDeDatos);
         }
