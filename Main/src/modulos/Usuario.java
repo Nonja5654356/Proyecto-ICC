@@ -3,10 +3,10 @@ package modulos;
 import java.util.Scanner;
 
 public abstract class Usuario{
-    private String nombre;
-    private String password;
-    private final String correo;
-    private boolean alta;
+    protected String nombre;
+    protected String password;
+    protected final String correo;
+    protected boolean alta;
     final boolean tipo;
 
     public Usuario(){
