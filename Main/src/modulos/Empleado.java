@@ -17,6 +17,7 @@ public class Empleado extends Usuario{
     @Override
     public void menuUsuario() {
         Scanner scn = new Scanner(System.in);
+        SistemaTareas sistemaTareas = new SistemaTareas();
         System.out.println("#".repeat(50));
         System.out.println("|        Bienvenido al Sistema de Tareas         |");
         System.out.println("#".repeat(50));
@@ -32,7 +33,7 @@ public class Empleado extends Usuario{
                 byte a = scn.nextByte();
                 if(a == 1) {
                     x = false;
-                    //checarTareas();
+                    sistemaTareas.listarTareasEmpleado(correo);
                 } else if(a == 2) {
                     x = false;
                     //actualizarTarea();

@@ -34,4 +34,15 @@ public class SistemaTareas {
         BaseDeDatos baseDeDatos = new BaseDeDatos();
         this.asignaciones = baseDeDatos.obtenerAsignaciones();
     }
+
+    public void listarTareasEmpleado(String correo){
+        boolean correoExistente = asignaciones.containsKey(correo);
+        if(correoExistente) {
+            List<Integer> tareasEmpleado = asignaciones.get(correo);
+            for (int i = 0; i < tareasEmpleado.size(); i++) {
+                Tareas tarea = tareas.get(tareasEmpleado.get(i));
+                tarea.mostrarDetallesTarea(i);
+            }
+        }
+    }
 }
