@@ -127,6 +127,7 @@ public class BaseDeDatos {
         }
     }
 
+    /// Modificar para que genere el ID automáticamente, eliminar ID de tareas
     public void guardarTarea(Tareas tarea) {
         Path tareasDir = Paths.get(DATABASE_DIR, "tareas.txt");
         List<String> lines = new ArrayList<>();
@@ -243,7 +244,27 @@ public class BaseDeDatos {
     }
 
     public Map<String, List<Integer>> obtenerAsignaciones(){
-        //POR HACER
-        return new HashMap<>();
+        Path usuariosDir = Paths.get(DATABASE_DIR, "asignaciones.txt");
+        List<String> lines = new ArrayList<>();
+        Map<String, List<Integer>> asignaciones = new HashMap<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(usuariosDir.toFile()))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (String data : lines) {
+            String[] parts = data.split("\\|");
+            String[] tareas = parts[1].split(",");
+            List<Integer> listaTareas = new ArrayList<>();
+            for (String tarea : tareas) {
+                listaTareas.add(Integer.parseInt(tarea.trim()));
+            }
+            asignaciones.put(parts[0], listaTareas);
+        }
+        return asignaciones;
     }
 }
