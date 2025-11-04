@@ -7,12 +7,12 @@ public class Main {
         scn.nextLine();
         String n = " ", c = " ", p = " ";
         byte b;
-        boolean a = false, x = true;
+        boolean a = false, x = true, atSign = false;
         boolean existe;
         System.out.println("#".repeat(50) + "\n|" + " ".repeat(18) + "Crear Cuenta" + " ".repeat(18) + "|\n" + "#".repeat(50));
         while (x) {
             System.out.print("| Ingrese su nombre: ");
-            n = scn.nextLine();
+            n = scn.nextLine().trim();
             if (n.isEmpty()) {
                 System.out.println("# Nombre inválido, intente otra vez: ");
             } else if (!n.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) {
@@ -25,7 +25,7 @@ public class Main {
         while (x) {
             existe = false;
             System.out.print("| Ingrese su correo: ");
-            c = scn.nextLine();
+            c = scn.nextLine().trim();
             List<String> correos = baseDeDatos.obtenerCorreos();
             for (String correo : correos) {
                 if (correo.equals(c)) {
@@ -34,9 +34,23 @@ public class Main {
                 }
             }
             if(!existe) {
-                if (!(c.contains("@") && c.endsWith(".com"))) {
-                    System.out.println("# Correo inválido, intente otra vez: ");
-                } else {
+                int aS = 0;
+                for(int i=0; i<c.length();i++){
+                    if(c.charAt(i) == '@'){
+                        aS++;
+                    }
+                }if(aS>1){
+                    atSign = true;
+                }
+                if (!c.contains("@")){
+                    System.out.println("# Correo inválido, debe contener \"@\", intente otra vez: ");
+                } else if(!c.endsWith(".com")) {
+                    System.out.println("# Correo inválido, debe terminar con \".com\", intente otra vez: ");
+                }else if(c.startsWith("@")){
+                    System.out.println("# Correo inválido, no debe iniciar con \"@\", intente otra vez: ");
+                }else if(atSign) {
+                    System.out.println("# Correo inválido, no puede tener mas de 1 \"@\", intente otra vez: ");
+                }else {
                     x = false;
                 }
             }else{
@@ -46,7 +60,7 @@ public class Main {
         x = true;
         while (x) {
             System.out.print("| Ingrese una contraseña para su cuenta: ");
-            p = scn.nextLine();
+            p = scn.nextLine().trim();
             if (p.isEmpty()) {
                 System.out.println("# La contraseña no puede estar vacía. Intente otra vez: ");
             } else if (p.contains(" ")) {
@@ -111,7 +125,7 @@ public class Main {
         }
         int intentos = 0;
         while(intentos<3) {
-            System.out.print("| Ingrese su conteaseña: ");
+            System.out.print("| Ingrese su contraseña: ");
             p = scn.nextLine();
             if (p.equals(expectedPassword)) {
                 System.out.println("| Iniciando sesión...");
