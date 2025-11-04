@@ -1,8 +1,13 @@
-Ian Eckhardt Alvarez|Ian_E_A@yahoo.com|asdfghjklñ|true|true| ||
+Ian Eckhardt Alvarez|Ian_E_A@yahoo.com|asdfghjklñ|true|true| |0|
 Raul|@.com|14567890|true|false|||
-empleadisimo|hdp@.com|qoi2u4uoi3fjwd|true|true|||
+empleadisimo|hdp@.com|qoi2u4uoi3fjwd|true|true| |0|
 alkdjhakdfhk|@.@.com|12345|true|false|||
 aoi|@yajsdfksjfk.com|12345|true|false|||
 juan|juan@arroba.com|12345|true|true| |0|
 widfnwf|@@@@@@@@@@.com.cmo.com|2ofiu|true|false|||
 aeaeae|12345|12345|true|false|||
+asdgdjgfc|@.com|qñwlejnfñqlwejnfñ|true|false|||
+wqhkbfqwkjhefbhkeqwjf|@@@@@@@@@@.awdkvjnasda.sdv.asdv.asd.va.sdv.a.com|oiuqwef198hfwoqijnf|true|true| |0|
+qwdlkfnqwlef|@.com.com|lwqkejfnlqkwjef|true|false|||
+1|1|1|true|true| |0|
+2|2|2|true|false|||

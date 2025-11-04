@@ -3,12 +3,12 @@ import java.util.*;
 
 public class Main {
 
-    public static Usuario crearCuenta(Scanner scn) {
+    public static Usuario crearCuenta(Scanner scn, BaseDeDatos baseDeDatos) {
         scn.nextLine();
         String n = " ", c = " ", p = " ";
         byte b;
         boolean a = false, x = true;
-        BaseDeDatos baseDeDatos = new BaseDeDatos();
+        boolean existe;
         System.out.println("#".repeat(50) + "\n|" + " ".repeat(18) + "Crear Cuenta" + " ".repeat(18) + "|\n" + "#".repeat(50));
         while (x) {
             System.out.print("| Ingrese su nombre: ");
@@ -23,12 +23,24 @@ public class Main {
         }
         x = true;
         while (x) {
+            existe = false;
             System.out.print("| Ingrese su correo: ");
             c = scn.nextLine();
-            if (!(c.contains("@") && c.endsWith(".com"))) {
-                System.out.println("# Correo inválido, intente otra vez: ");
-            } else {
-                x = false;
+            List<String> correos = baseDeDatos.obtenerCorreos();
+            for (String correo : correos) {
+                if (correo.equals(c)) {
+                    existe = true;
+                    break;
+                }
+            }
+            if(!existe) {
+                if (!(c.contains("@") && c.endsWith(".com"))) {
+                    System.out.println("# Correo inválido, intente otra vez: ");
+                } else {
+                    x = false;
+                }
+            }else{
+                System.out.println("# Ese correo ya ha sido utilizado, intente otra vez: ");
             }
         }
         x = true;
@@ -130,7 +142,7 @@ public class Main {
                 byte a = scn.nextByte();
                 if(a == 1) {
                     x = false;
-                    Usuario newUser = crearCuenta(scn);
+                    Usuario newUser = crearCuenta(scn, baseDeDatos);
                     newUser.menuUsuario();
                 } else if(a == 2) {
                     x = false;

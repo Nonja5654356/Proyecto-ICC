@@ -171,9 +171,9 @@ public class BaseDeDatos {
             String[] tareasAsignadas = parts[3].split(",");
             int[] tareasArray = new int[tareasAsignadas.length];
             for (int i = 0; i < tareasAsignadas.length; i++) {
-                tareasArray[i] = Integer.parseInt(tareasAsignadas[i].trim()); // .trim() removes leading/trailing spaces
+                tareasArray[i] = Integer.parseInt(tareasAsignadas[i].trim());
             }
-            Tareas tarea = new Tareas(Integer.parseInt(parts[0]), parts[1], parts[2], tareasArray, Boolean.parseBoolean(parts[3]));
+            Tareas tarea = new Tareas(Integer.parseInt(parts[0]), parts[1], parts[2], tareasArray, parts[4].equals("true"));
             listaTareas.add(tarea);
         }
         return listaTareas;

@@ -37,12 +37,21 @@ public class SistemaTareas {
 
     public void listarTareasEmpleado(String correo){
         boolean correoExistente = asignaciones.containsKey(correo);
+        boolean tareasPorHacer = false;
         if(correoExistente) {
             List<Integer> tareasEmpleado = asignaciones.get(correo);
             for (int i = 0; i < tareasEmpleado.size(); i++) {
                 Tareas tarea = tareas.get(tareasEmpleado.get(i));
-                tarea.mostrarDetallesTarea(i);
+                tarea.mostrarDetallesTarea(i+1);
+                if(!tarea.getEstado()){
+                    tareasPorHacer = true;
+                }
             }
+            if(!tareasPorHacer){
+                System.out.println("# Has completado todas tus tareas :)");
+            }
+        }else{
+            System.out.println("# No tienes tareas asignadas :)");
         }
     }
 }
