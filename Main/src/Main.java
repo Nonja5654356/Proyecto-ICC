@@ -15,7 +15,7 @@ public class Main {
             n = scn.nextLine().trim();
             if (n.isEmpty()) {
                 System.out.println("# Nombre inválido, intente otra vez: ");
-            } else if (!n.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) {
+            } else if (!n.matches("[a-zA-ZáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙâêîôûÂÊÎÔÛäëïöüÄËÏÖÜñÑ']+")) {
                 System.out.println("# El nombre solo puede contener letras y espacios, intente otra vez: ");
             } else {
                 x = false;
@@ -35,6 +35,7 @@ public class Main {
             }
             if(!existe) {
                 int aS = 0;
+                atSign = false;
                 for(int i=0; i<c.length();i++){
                     if(c.charAt(i) == '@'){
                         aS++;
