@@ -41,6 +41,18 @@ public class Empleado extends Usuario{
                     } else if (a == 3) {
                         x = false;
                         mostrarInfo();
+                        System.out.print("# ¿Quieres modificar tus datos? (1 si, 2 no): ");
+                        try {
+                            byte b = scn.nextByte();
+                            if (b==1){
+                                actualizarInfo();
+                            } else {
+                                System.out.println("# Número inválido, por favor ingrese un número válido (1 ó 2) ");
+                            }
+                        } catch (InputMismatchException e) {
+                            System.out.println("# Error: Debe ingresar un número válido (1 ó 2).");
+                            scn.nextLine();
+                        }
                     } else if (a == 4) {
                         x = false;
                         System.out.println("# Cerrando Sesión...");

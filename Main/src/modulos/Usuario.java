@@ -46,12 +46,33 @@ public abstract class Usuario{
 
     public void actualizarInfo(){
         Scanner scn = new Scanner(System.in);
-        System.out.print("Ingresa tu nuevo nombre: ");
-        String nombre = scn.nextLine();
+        System.out.print("| Ingresa tu nuevo nombre (Ingrese 0 para cancelar): ");
+        String nombre = scn.nextLine().trim();
+        if (nombre.equals("0")) {
+            System.out.println("| Regresando... ");
+            //Regresar
+        }
+        if (nombre.isEmpty()){
+            System.out.println("# Nombre inválido, intente otra vez: ");
+        } else if (!nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙâêîôûÂÊÎÔÛäëïöüÄËÏÖÜñÑ ]+")) {
+            System.out.println("# El nombre solo puede contener letras y espacios");
+        }
         setNombre(nombre);
-        System.out.println("Ingresa tu nueva contraseña: ");
-        password = scn.nextLine();
+        System.out.print("| Ingresa tu nueva contraseña (Ingrese 0 para cancelar): ");
+        String password = scn.nextLine();
+        if (password.equals("0")) {
+            System.out.println("| Regresando...");
+            //Regresar
+        }
+        if (password.isEmpty()) {
+            System.out.println("# La contraseña no puede estar vacia, Intente otra vez: ");
+        } else if (password.contains(" ")) {
+            System.out.println("# La contraseña no puede contener espacios. Intente otra vez: ");
+        } else if (password.length() < 7){
+            System.out.println("# La contraseña debe tener al menos 8 caracteres. Intente otra vez: ");
+        }
         setPassword(password);
+        System.out.println("Información actualizada");
     }
 
     public void menuUsuario(){}

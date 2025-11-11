@@ -19,7 +19,7 @@ public class Main {
             }
             if (n.isEmpty()) {
                 System.out.println("# Nombre inválido, intente otra vez: ");
-            } else if (!n.matches("[a-zA-ZáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙâêîôûÂÊÎÔÛäëïöüÄËÏÖÜñÑ]+")) {
+            } else if (!n.matches("[a-zA-ZáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙâêîôûÂÊÎÔÛäëïöüÄËÏÖÜñÑ ]+")) {
                 System.out.println("# El nombre solo puede contener letras y espacios, intente otra vez: ");
             } else {
                 x = false;
