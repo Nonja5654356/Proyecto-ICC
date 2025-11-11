@@ -17,8 +17,8 @@ public class Empleado extends Usuario{
     @Override
     public void menuUsuario() {
         boolean cerrarSesion = true;
+        Scanner scn = new Scanner(System.in);
         while(cerrarSesion) {
-            Scanner scn = new Scanner(System.in);
             System.out.println("#".repeat(50));
             System.out.println("|        Bienvenido al Sistema de Tareas         |");
             System.out.println("#".repeat(50));

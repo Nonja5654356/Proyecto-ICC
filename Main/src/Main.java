@@ -11,8 +11,12 @@ public class Main {
         boolean existe;
         System.out.println("#".repeat(50) + "\n|" + " ".repeat(18) + "Crear Cuenta" + " ".repeat(18) + "|\n" + "#".repeat(50));
         while (x) {
-            System.out.print("| Ingrese su nombre: ");
+            System.out.print("| Ingrese su nombre (Ingrese 0 para regresar): ");
             n = scn.nextLine().trim();
+            if (n.equals("0")){
+                System.out.println("Regresando...");
+                return new Empleado();
+            }
             if (n.isEmpty()) {
                 System.out.println("# Nombre inválido, intente otra vez: ");
             } else if (!n.matches("[a-zA-ZáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙâêîôûÂÊÎÔÛäëïöüÄËÏÖÜñÑ']+")) {
@@ -24,8 +28,12 @@ public class Main {
         x = true;
         while (x) {
             existe = false;
-            System.out.print("| Ingrese su correo: ");
+            System.out.print("| Ingrese su correo (Ingrese 0 para regresar): ");
             c = scn.nextLine().trim();
+            if (c.equals("0")){
+                System.out.println("Regresando...");
+                return new Empleado();
+            }
             List<String> correos = baseDeDatos.obtenerCorreos();
             for (String correo : correos) {
                 if (correo.equals(c)) {
@@ -60,8 +68,12 @@ public class Main {
         }
         x = true;
         while (x) {
-            System.out.print("| Ingrese una contraseña para su cuenta: ");
+            System.out.print("| Ingrese una contraseña para su cuenta (Ingrese 0 para regresar): ");
             p = scn.nextLine().trim();
+            if(p.equals("0")){
+                System.out.println("Regresando...");
+                return new Empleado();
+            }
             if (p.isEmpty()) {
                 System.out.println("# La contraseña no puede estar vacía. Intente otra vez: ");
             } else if (p.contains(" ")) {
@@ -108,8 +120,12 @@ public class Main {
         System.out.println("|                Inicio de sesión                |");
         System.out.println("#".repeat(50));
         while(x) {
-            System.out.print("| Ingrese su correo: ");
+            System.out.print("| Ingrese su correo (Ingrese 0 para regresar): ");
             n = scn.nextLine();
+            if (n.equals("0")){
+                System.out.println("Regresando...");
+                return new Empleado();
+            }
             List<String> correos = baseDeDatos.obtenerCorreos();
             for (int i = 0; i < correos.size(); i++) {
                 if (correos.get(i).equals(n)) {
@@ -126,8 +142,12 @@ public class Main {
         }
         int intentos = 0;
         while(intentos<3) {
-            System.out.print("| Ingrese su contraseña: ");
+            System.out.print("| Ingrese su contraseña (Ingrese 0 para regresar): ");
             p = scn.nextLine();
+            if (p.equals("0")){
+                System.out.println("Regresando...");
+                return new Empleado();
+            }
             if (p.equals(expectedPassword)) {
                 System.out.println("| Iniciando sesión...");
                 return baseDeDatos.obtenerUsuario(n);
@@ -158,7 +178,12 @@ public class Main {
                 if(a == 1) {
                     x = false;
                     Usuario newUser = crearCuenta(scn, baseDeDatos);
-                    newUser.menuUsuario();
+                    if(newUser.getCorreo().equals("correo@correo.com")){
+                        x=true;
+                        return true;
+                    }else {
+                        newUser.menuUsuario();
+                    }
                 } else if(a == 2) {
                     x = false;
                     Usuario newUser = iniciarSesion(scn, baseDeDatos);
