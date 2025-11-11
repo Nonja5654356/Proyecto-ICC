@@ -64,7 +64,7 @@ public class Administrador extends Usuario{
             System.out.println("#".repeat(50));
             boolean x = true;
             while (x) {
-                System.out.println("Hola");
+                System.out.print("| Ingresa un número: ");
                 try {
                     byte a = scn.nextByte();
                     if (a == 1) {
@@ -96,7 +96,7 @@ public class Administrador extends Usuario{
                         System.out.println("# Número inválido, por favor ingrese un número válido (1,2,3,4,5,6,7,8,9).");
                     }
                 } catch (InputMismatchException e) {
-                    System.out.println("# Error: Debe ingresar un número válido (1,2,3 ó 4).");
+                    System.out.println("# Error: Debe ingresar un número válido (del 1 al 8).");
                     scn.nextLine();
                 }
             }
