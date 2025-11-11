@@ -14,12 +14,12 @@ public class Main {
             System.out.print("| Ingrese su nombre (Ingrese 0 para regresar): ");
             n = scn.nextLine().trim();
             if (n.equals("0")){
-                System.out.println("Regresando...");
+                System.out.println("| Regresando...");
                 return new Empleado();
             }
             if (n.isEmpty()) {
                 System.out.println("# Nombre inválido, intente otra vez: ");
-            } else if (!n.matches("[a-zA-ZáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙâêîôûÂÊÎÔÛäëïöüÄËÏÖÜñÑ']+")) {
+            } else if (!n.matches("[a-zA-ZáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙâêîôûÂÊÎÔÛäëïöüÄËÏÖÜñÑ]+")) {
                 System.out.println("# El nombre solo puede contener letras y espacios, intente otra vez: ");
             } else {
                 x = false;
@@ -31,7 +31,7 @@ public class Main {
             System.out.print("| Ingrese su correo (Ingrese 0 para regresar): ");
             c = scn.nextLine().trim();
             if (c.equals("0")){
-                System.out.println("Regresando...");
+                System.out.println("| Regresando...");
                 return new Empleado();
             }
             List<String> correos = baseDeDatos.obtenerCorreos();
@@ -71,7 +71,7 @@ public class Main {
             System.out.print("| Ingrese una contraseña para su cuenta (Ingrese 0 para regresar): ");
             p = scn.nextLine().trim();
             if(p.equals("0")){
-                System.out.println("Regresando...");
+                System.out.println("| Regresando...");
                 return new Empleado();
             }
             if (p.isEmpty()) {
@@ -87,8 +87,12 @@ public class Main {
         x = true;
         while(x) {
             try {
-                System.out.print("| Seleccione su rol (1.- Empleado 2.- Administrador) :");
+                System.out.print("| Seleccione su rol (1.- Empleado 2.- Administrador) (Ingrese 0 para regresar) :");
                 b = scn.nextByte();
+                if (b==0){
+                    System.out.println("| Regresando...");
+                    return new Empleado();
+                }
                 if (0 < b && b < 3) {
                     a = b == 2;
                     x = false;
