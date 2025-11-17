@@ -143,7 +143,7 @@ public class Main {
     }
 
     public static boolean logIn(Scanner scn, BaseDeDatos baseDeDatos){
-        IO.println("#".repeat(50));
+        System.out.println("#".repeat(50));
         System.out.println("|" + " ".repeat(14) + "Ingresar al sistema" + " ".repeat(15) + "|");
         System.out.println("#".repeat(50));
         System.out.println("|" + " ".repeat(16) + "Crear Cuenta (1)" + " ".repeat(16) + "|");
@@ -183,7 +183,7 @@ public class Main {
         return true;
     }
 
-    static void main() {
+    public static void main(String[] args) {
         boolean x = true;
         Scanner scn = new Scanner(System.in);
         BaseDeDatos baseDeDatos = new BaseDeDatos();
