@@ -72,6 +72,8 @@ public abstract class Usuario{
             System.out.println("# La contraseña debe tener al menos 8 caracteres. Intente otra vez: ");
         }
         setPassword(password);
+        BaseDeDatos baseDeDatos = new BaseDeDatos();
+        baseDeDatos.actualizarDatosUsuario(correo, nombre, password);
         System.out.println("Información actualizada");
     }
 

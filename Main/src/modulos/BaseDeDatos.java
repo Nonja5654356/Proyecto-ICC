@@ -41,8 +41,6 @@ public class BaseDeDatos {
         String userData = user.getNombre() + "|" + user.getCorreo() + "|" + user.getPassword() + "|" + user.getAlta() + "|" + user.getTipo();
         if(user instanceof Administrador administrador){
             userData += "|" + (!administrador.getEmpleados().isEmpty() ? String.join(",", administrador.getEmpleados()) : " ") + "|" + (!administrador.getIdTareasCreadas().isEmpty() ? administrador.getIdTareasCreadas().stream().map(Object::toString).collect(Collectors.joining(",")) : "0") + "|";
-        }else{
-            userData += "|||";
         }
         lines.add(userData);
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(usuariosDir.toFile()))) {
@@ -266,5 +264,47 @@ public class BaseDeDatos {
             asignaciones.put(parts[0], listaTareas);
         }
         return asignaciones;
+    }
+
+    public void actualizarDatosUsuario(String correo, String nombre, String password){
+        int x = -1;
+        Path usuariosDir = Paths.get(DATABASE_DIR, "usuarios.txt");
+        List<String> lines = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(usuariosDir.toFile()))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        for(int i=0; i<lines.size();i++){
+            String data = lines.get(i);
+            String[] parts = data.split("\\|");
+            if(parts[1].equals(correo)){
+                x = i;
+                break;
+            }
+        }
+
+        if(x>=0){
+            String porActualizar = lines.get(x);
+            String[] parts = porActualizar.split("\\|");
+            parts[0] = nombre;
+            parts[2] = password;
+            String actualizado = String.join("|", parts);
+            lines.set(x, actualizado);
+        }
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(usuariosDir.toFile()))) {
+            for (String line : lines) {
+                bw.write(line);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

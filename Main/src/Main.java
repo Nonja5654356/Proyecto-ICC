@@ -2,7 +2,7 @@ import modulos.*;
 import java.util.*;
 
 public class Main {
-
+    /// Mañana empezaré a añadir comentarios a el código y a documentar
     public static Usuario crearCuenta(Scanner scn, BaseDeDatos baseDeDatos) {
         scn.nextLine();
         String n = " ", c = " ", p = " ";
