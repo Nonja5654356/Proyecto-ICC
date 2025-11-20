@@ -2,10 +2,10 @@ import modulos.*;
 import java.util.*;
 
 public class Main {
-    /// Hoy empiezo a documentar
+    // Hoy empiezo a documentar
 
-    /// **crearCuenta**
-    /*
+    // crearCuenta
+    /**
 
      */
     public static Usuario crearCuenta(Scanner scn, BaseDeDatos baseDeDatos) {
@@ -120,8 +120,8 @@ public class Main {
         }
     }
 
-    /// **iniciarSesion**
-    /*
+    // iniciarSesion
+    /**
     iniciarSesion hace lo siguiente:
         1.- se usa scn.nextline() para limpiar el scanner.
         2.- se inicializan las variables.
@@ -188,8 +188,8 @@ public class Main {
         return new Empleado();
     }
 
-    /// **logIn**
-    /*
+    // logIn
+    /**
     logIn hace lo siguiente:
         1.- Imprime el menú.
         2.- inicia un ciclo con el booleano x.
@@ -248,8 +248,8 @@ public class Main {
         return true;
     }
 
-    /// **Main**
-    /*
+    // Main
+    /**
     En el main ocurre lo siguiente:
         1.- se crea un booleano llamado x, fijado como true.
         2.- se crea el scanner que se va a utilizar a lo largo del programa.
