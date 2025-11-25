@@ -1,5 +1,6 @@
 package modulos;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public abstract class Usuario{
@@ -37,32 +38,39 @@ public abstract class Usuario{
     public void setPassword(String password){this.password = password;}
     public void setAlta(boolean alta){this.alta = alta;}
 
-    public void mostrarInfo(){
+    public void mostrarInfo(Scanner scn){
+        scn.nextLine();
         System.out.println("Nombre : " + nombre);
         System.out.println("Correo : " + correo);
         System.out.println("Contraseña : " + password);
         System.out.println("Estado de cuenta : " + (alta ? "Dado de alta" : "No dado de alta aún"));
     }
 
-    public void actualizarInfo(){
-        Scanner scn = new Scanner(System.in);
-        System.out.print("| Ingresa tu nuevo nombre (Ingrese 0 para cancelar): ");
+    public String actualizarInfo(Scanner scn){
+        scn.nextLine();
+        byte c = 0;
+        System.out.print("| Ingresa tu nuevo nombre (Ingrese 0 para cancelar, 1 para omitir): ");
         String nombre = scn.nextLine().trim();
         if (nombre.equals("0")) {
             System.out.println("| Regresando... ");
-            //Regresar
-        }
-        if (nombre.isEmpty()){
+            return "# No se cambió la información";
+        }else if (nombre.equals("1")) {
+            nombre = this.nombre;
+            c+=1;
+        }else if (nombre.isEmpty()){
             System.out.println("# Nombre inválido, intente otra vez: ");
         } else if (!nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙâêîôûÂÊÎÔÛäëïöüÄËÏÖÜñÑ ]+")) {
             System.out.println("# El nombre solo puede contener letras y espacios");
         }
         setNombre(nombre);
-        System.out.print("| Ingresa tu nueva contraseña (Ingrese 0 para cancelar): ");
-        String password = scn.nextLine();
+        System.out.print("| Ingresa tu nueva contraseña (Ingrese 0 para cancelar, 1 para omitir): ");
+        String password = scn.nextLine().trim();
         if (password.equals("0")) {
-            System.out.println("| Regresando...");
-            //Regresar
+            System.out.println("| Regresando... ");
+            return "# No se cambió la información";
+        }else if (password.equals("1")) {
+            password = this.password;
+            c+=1;
         }
         if (password.isEmpty()) {
             System.out.println("# La contraseña no puede estar vacia, Intente otra vez: ");
@@ -74,8 +82,14 @@ public abstract class Usuario{
         setPassword(password);
         BaseDeDatos baseDeDatos = new BaseDeDatos();
         baseDeDatos.actualizarDatosUsuario(correo, nombre, password);
-        System.out.println("Información actualizada");
+        if(c==2){
+            return "# No se cambió la información";
+        }else if(c==1){
+            return "# Se cambió la información seleccionada";
+        }else {
+            return "Información actualizada";
+        }
     }
 
-    public void menuUsuario(){}
+    public void menuUsuario(Scanner scn){}
 }

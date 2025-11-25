@@ -224,7 +224,7 @@ public class Main {
                     if(newUser.getCorreo().equals("correo@correo.com")){
                         return true;
                     }else {
-                        newUser.menuUsuario();
+                        newUser.menuUsuario(scn);
                     }
                 } else if(a == 2) {
                     x = false;
@@ -232,7 +232,7 @@ public class Main {
                     if(newUser.getCorreo().equals("correo@correo.com")){
                         return true;
                     }else {
-                        newUser.menuUsuario();
+                        newUser.menuUsuario(scn);
                     }
                 } else if(a == 3){
                     System.out.println("# Saliendo...");

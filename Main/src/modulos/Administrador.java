@@ -31,8 +31,8 @@ public class Administrador extends Usuario{
     public void setIdTareasCreadas(List<Integer> idTareasCreadas){this.idTareasCreadas = idTareasCreadas;}
 
     @Override
-    public void mostrarInfo() {
-        super.mostrarInfo();
+    public void mostrarInfo(Scanner scn) {
+        super.mostrarInfo(scn);
         if(empleados.isEmpty()){
             System.out.println("Actualmente no se tiene ningún empleado.");
         }for (int i = 0; i < empleados.size(); i++) {
@@ -46,8 +46,7 @@ public class Administrador extends Usuario{
     }
 
     @Override
-    public void menuUsuario() {
-        Scanner scn = new Scanner(System.in);
+    public void menuUsuario(Scanner scn) {
         boolean cerrarSesion = true;
         while(cerrarSesion) {
             System.out.println("#".repeat(50));
@@ -87,7 +86,23 @@ public class Administrador extends Usuario{
                         //darBaja();
                     } else if (a == 7) {
                         x = false;
-                        mostrarInfo();
+                        mostrarInfo(scn);
+                        System.out.print("# ¿Quieres modificar tus datos? (1 si, 2 no): ");
+                        try {
+                            byte b = scn.nextByte();
+                            if (b==1){
+                                String info = actualizarInfo(scn);
+                                System.out.println(info);
+                            }else if(b==2){
+                                System.out.println("# Regresando...");
+                            }else {
+                                System.out.println("# Número inválido, por favor ingrese un número válido (1 ó 2) ");
+                                scn.nextLine();
+                            }
+                        } catch (InputMismatchException e) {
+                            System.out.println("# Error: Debe ingresar un número válido (1 ó 2).");
+                            scn.nextLine();
+                        }
                     } else if (a == 8) {
                         x = false;
                         System.out.println("# Cerrar sesión...");
@@ -103,9 +118,20 @@ public class Administrador extends Usuario{
         }
     }
 
-    private void checarDatos(){
-        mostrarInfo();
-        actualizarInfo();
-        setAlta(true);
+    private void checarDatos(Scanner scn){
+        mostrarInfo(scn);
+        System.out.print("# ¿Quieres modificar tus datos? (1 si, 2 no): ");
+        try {
+            byte b = scn.nextByte();
+            if (b==1){
+                actualizarInfo(scn);
+            } else {
+                System.out.println("# Número inválido, por favor ingrese un número válido (1 ó 2) ");
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("# Error: Debe ingresar un número válido (1 ó 2).");
+            scn.nextLine();
+        }
+        actualizarInfo(scn);
     }
 }

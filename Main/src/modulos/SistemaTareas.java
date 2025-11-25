@@ -1,5 +1,6 @@
 package modulos;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,11 +35,12 @@ public class SistemaTareas {
         this.asignaciones = baseDeDatos.obtenerAsignaciones();
     }
 
-    public void listarTareasEmpleado(String correo){
+    public List<Integer> listarTareasEmpleado(String correo){
         boolean correoExistente = asignaciones.containsKey(correo);
         boolean tareasPorHacer = false;
+        List<Integer> tareasEmpleado = new ArrayList<>();
         if(correoExistente) {
-            List<Integer> tareasEmpleado = asignaciones.get(correo);
+            tareasEmpleado = asignaciones.get(correo);
             for (int i = 0; i < tareasEmpleado.size(); i++) {
                 Tareas tarea = tareas.get(tareasEmpleado.get(i));
                 tarea.mostrarDetallesTarea(i+1);
@@ -48,9 +50,11 @@ public class SistemaTareas {
             }
             if(!tareasPorHacer){
                 System.out.println("# Has completado todas tus tareas :)");
+                return new ArrayList<>();
             }
         }else{
             System.out.println("# No tienes tareas asignadas :)");
         }
+        return tareasEmpleado;
     }
 }
