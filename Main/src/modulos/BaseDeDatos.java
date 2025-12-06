@@ -125,7 +125,6 @@ public class BaseDeDatos {
         }
     }
 
-    /// Modificar para que genere el ID automáticamente, eliminar ID de tareas
     public void guardarTarea(Tareas tarea) {
         Path tareasDir = Paths.get(DATABASE_DIR, "tareas.txt");
         List<String> lines = new ArrayList<>();
@@ -138,8 +137,9 @@ public class BaseDeDatos {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        String fechaEntrega = Arrays.toString(tarea.getFechaEntrega());
-        fechaEntrega = fechaEntrega.substring(1, fechaEntrega.length() - 1);
+        // Formatear fecha manualmente sin usar Arrays.toString()
+        int[] fecha = tarea.getFechaEntrega();
+        String fechaEntrega = fecha[0] + ", " + fecha[1] + ", " + fecha[2];
         String datosTarea = tarea.getId() + "|" + tarea.getNombre() + "|" + tarea.getDescripcion() + "|" + fechaEntrega + "|" + tarea.getEstado();
         lines.add(datosTarea);
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(tareasDir.toFile()))) {
@@ -153,10 +153,10 @@ public class BaseDeDatos {
     }
 
     public List<Tareas> obtenerTareas(){
-        Path usuariosDir = Paths.get(DATABASE_DIR, "tareas.txt");
+        Path tareasDir = Paths.get(DATABASE_DIR, "tareas.txt");
         List<String> lines = new ArrayList<>();
         List<Tareas> listaTareas = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(usuariosDir.toFile()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(tareasDir.toFile()))) {
             String line;
             while ((line = br.readLine()) != null) {
                 lines.add(line);
@@ -165,14 +165,23 @@ public class BaseDeDatos {
             throw new RuntimeException(e);
         }
         for (String data : lines) {
-            String[] parts = data.split("\\|");
-            String[] tareasAsignadas = parts[3].split(",");
-            int[] tareasArray = new int[tareasAsignadas.length];
-            for (int i = 0; i < tareasAsignadas.length; i++) {
-                tareasArray[i] = Integer.parseInt(tareasAsignadas[i].trim());
+            try {
+                String[] parts = data.split("\\|");
+                if (parts.length < 5) {
+                    System.err.println("# ADVERTENCIA: Línea corrupta ignorada en tareas.txt: " + data);
+                    continue;
+                }
+                String[] fechaPartes = parts[3].split(",");
+                int[] fechaArray = new int[3];
+                for (int i = 0; i < 3 && i < fechaPartes.length; i++) {
+                    fechaArray[i] = Integer.parseInt(fechaPartes[i].trim());
+                }
+                Tareas tarea = new Tareas(Integer.parseInt(parts[0]), parts[1], parts[2], fechaArray, parts[4].trim().equals("true"));
+                listaTareas.add(tarea);
+            } catch (NumberFormatException e) {
+                System.err.println("# ADVERTENCIA: Error al leer tarea, línea ignorada: " + data);
+                System.err.println("# Error: " + e.getMessage());
             }
-            Tareas tarea = new Tareas(Integer.parseInt(parts[0]), parts[1], parts[2], tareasArray, parts[4].equals("true"));
-            listaTareas.add(tarea);
         }
         return listaTareas;
     }
@@ -296,6 +305,72 @@ public class BaseDeDatos {
             parts[2] = password;
             String actualizado = String.join("|", parts);
             lines.set(x, actualizado);
+        }
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(usuariosDir.toFile()))) {
+            for (String line : lines) {
+                bw.write(line);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // NUEVO: Actualiza el estado de una tarea en el archivo
+    public void actualizarEstadoTarea(int idTarea, boolean estado) {
+        Path tareasDir = Paths.get(DATABASE_DIR, "tareas.txt");
+        List<String> lines = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(tareasDir.toFile()))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (int i = 0; i < lines.size(); i++) {
+            String[] parts = lines.get(i).split("\\|");
+            if (Integer.parseInt(parts[0]) == idTarea) {
+                parts[4] = String.valueOf(estado);
+                lines.set(i, String.join("|", parts));
+                break;
+            }
+        }
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(tareasDir.toFile()))) {
+            for (String line : lines) {
+                bw.write(line);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // NUEVO: Actualiza el estado de alta de un usuario
+    public void actualizarEstadoAlta(String correo, boolean alta) {
+        Path usuariosDir = Paths.get(DATABASE_DIR, "usuarios.txt");
+        List<String> lines = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(usuariosDir.toFile()))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (int i = 0; i < lines.size(); i++) {
+            String[] parts = lines.get(i).split("\\|");
+            if (parts[1].equals(correo)) {
+                parts[3] = String.valueOf(alta);
+                lines.set(i, String.join("|", parts));
+                break;
+            }
         }
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(usuariosDir.toFile()))) {

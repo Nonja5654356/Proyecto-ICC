@@ -122,20 +122,20 @@ public class Main {
 
     // iniciarSesion
     /**
-    iniciarSesion hace lo siguiente:
-        1.- se usa scn.nextline() para limpiar el scanner.
-        2.- se inicializan las variables.
-        3.- se inicializan los booleanos existe y x.
-        4.- se inicia el ciclo con x.
-        5.- el usuario debe poner su correo.
-            5.0.- si se escoge 0, regresa empleado vacío.
-            5.1.- se checa si el correo existe en la base de datos.
-                5.1.0.- si no se encuentra el correo, se le muestra al usuario que el correo no existe, el ciclo continúa.
-                5.1.1.- si se encuentra el correo, existe se vuelve verdadero y se obtiene la contraseña correcta del correo.
-        6.- se le pide al usuario la contraseña del correo.
-            6.1.- si se escribe 0, se regresa el usuario vacío.
-            6.2.- si el usuario de equivoca, un contador crece, si el contador llega a 3, se le indicará al usuario que ha intentado varias veces y se regresa el empleado vacío.
-            6.3.- si el usuario escribe la contraseña correcta, se usa la base de datos para obtener al usuario, se regresa al usuario.
+     iniciarSesion hace lo siguiente:
+     1.- se usa scn.nextline() para limpiar el scanner.
+     2.- se inicializan las variables.
+     3.- se inicializan los booleanos existe y x.
+     4.- se inicia el ciclo con x.
+     5.- el usuario debe poner su correo.
+     5.0.- si se escoge 0, regresa empleado vacío.
+     5.1.- se checa si el correo existe en la base de datos.
+     5.1.0.- si no se encuentra el correo, se le muestra al usuario que el correo no existe, el ciclo continúa.
+     5.1.1.- si se encuentra el correo, existe se vuelve verdadero y se obtiene la contraseña correcta del correo.
+     6.- se le pide al usuario la contraseña del correo.
+     6.1.- si se escribe 0, se regresa el usuario vacío.
+     6.2.- si el usuario de equivoca, un contador crece, si el contador llega a 3, se le indicará al usuario que ha intentado varias veces y se regresa el empleado vacío.
+     6.3.- si el usuario escribe la contraseña correcta, se verifica que el usuario esté dado de alta, si lo está se regresa el usuario, si no se le informa y se regresa empleado vacío.
      */
     public static Usuario iniciarSesion(Scanner scn, BaseDeDatos baseDeDatos){
         scn.nextLine();
@@ -176,12 +176,24 @@ public class Main {
             }
             if (p.equals(expectedPassword)) {
                 System.out.println("| Iniciando sesión...");
-                return baseDeDatos.obtenerUsuario(n);
+                Usuario usuario = baseDeDatos.obtenerUsuario(n);
+
+                // VERIFICAR SI EL USUARIO ESTÁ DADO DE ALTA
+                if (!usuario.getAlta()) {
+                    System.out.println("#".repeat(50));
+                    System.out.println("# ERROR: Esta cuenta ha sido desactivada.");
+                    System.out.println("# Contacte con un administrador para reactivarla.");
+                    System.out.println("#".repeat(50));
+                    return new Empleado();
+                }
+
+                return usuario;
             }else{
                 System.out.println("# Contraseña incorrecta, intente otra vez.");
                 intentos++;
             }
-        }if(intentos==3){
+        }
+        if(intentos==3){
             System.out.println("# Demasiados intentos, inténtelo más tarde.");
             return new Empleado();
         }
@@ -190,20 +202,20 @@ public class Main {
 
     // logIn
     /**
-    logIn hace lo siguiente:
-        1.- Imprime el menú.
-        2.- inicia un ciclo con el booleano x.
-        3.- si se elige 1, se llama srearCuenta.
-            3.0.- x se vuelve false, terminano el ciclo de la pantalla de login.
-            3.1.- si se regresa el empleado vacio, la funcion regresa true, continuando el ciclo de login y regreando al inicio de la funcion.
-            3.2.- si no se regresa el empleado vacio, se llama menuUsuario.
-        4.- si se elige 2, se llama a iniciarSesion.
-            4.0.- x se vuelve false, terminando el ciclo de la pantalla de login.
-            4.1.- si se regresa el empleado vacio, la funcion regresa true, continuando el ciclo de login y regreando al inicio de la funcion.
-            4.2.- si no se regresa el empleado vacio, se llama menuUsuario.
-        5.- si se elige 3, se regresa false, terminando el ciclo de Main y terminando el programa.
-        6.- si se elige otro número, se imprime el mensaje de error y se continúa el ciclo.
-        7.- si se elige otras cosas, se atrapa el input mismatch error y se le indica al usuario, se continúa el ciclo.
+     logIn hace lo siguiente:
+     1.- Imprime el menú.
+     2.- inicia un ciclo con el booleano x.
+     3.- si se elige 1, se llama srearCuenta.
+     3.0.- x se vuelve false, terminano el ciclo de la pantalla de login.
+     3.1.- si se regresa el empleado vacio, la funcion regresa true, continuando el ciclo de login y regreando al inicio de la funcion.
+     3.2.- si no se regresa el empleado vacio, se llama menuUsuario.
+     4.- si se elige 2, se llama a iniciarSesion.
+     4.0.- x se vuelve false, terminando el ciclo de la pantalla de login.
+     4.1.- si se regresa el empleado vacio, la funcion regresa true, continuando el ciclo de login y regreando al inicio de la funcion.
+     4.2.- si no se regresa el empleado vacio, se llama menuUsuario.
+     5.- si se elige 3, se regresa false, terminando el ciclo de Main y terminando el programa.
+     6.- si se elige otro número, se imprime el mensaje de error y se continúa el ciclo.
+     7.- si se elige otras cosas, se atrapa el input mismatch error y se le indica al usuario, se continúa el ciclo.
      */
     public static boolean logIn(Scanner scn, BaseDeDatos baseDeDatos){
         System.out.println("#".repeat(50));
@@ -250,12 +262,12 @@ public class Main {
 
     // Main
     /**
-    En el main ocurre lo siguiente:
-        1.- se crea un booleano llamado x, fijado como true.
-        2.- se crea el scanner que se va a utilizar a lo largo del programa.
-        3.- se crea la instancia de la base de datos y se crea la base de datos en caso de que esta no exisita.
-        4.- con el booleano x se crea un bucle, llamando login hasta que este regrese falso, terminando el bucle y con eso el programa.
-    */
+     En el main ocurre lo siguiente:
+     1.- se crea un booleano llamado x, fijado como true.
+     2.- se crea el scanner que se va a utilizar a lo largo del programa.
+     3.- se crea la instancia de la base de datos y se crea la base de datos en caso de que esta no exisita.
+     4.- con el booleano x se crea un bucle, llamando login hasta que este regrese falso, terminando el bucle y con eso el programa.
+     */
     public static void main(String[] args) {
         boolean x = true;
         Scanner scn = new Scanner(System.in);

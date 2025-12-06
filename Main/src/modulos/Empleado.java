@@ -99,8 +99,33 @@ public class Empleado extends Usuario{
         return tareasEmpleado;
     }
 
-    private String actualizarTarea(Scanner scn, List<Integer> tareas){
-        System.out.print("| Elija el número de tarea a actualizar: ");
-        return "Hola";
+    private String actualizarTarea(Scanner scn, List<Integer> tareas) {
+        boolean seleccionValida = false;
+        int numeroTarea = -1;
+
+        while (!seleccionValida) {
+            try {
+                System.out.print("| Elija el número de tarea a actualizar (0 para cancelar): ");
+                numeroTarea = scn.nextInt();
+
+                if (numeroTarea == 0) {
+                    return "# Operación cancelada.";
+                }
+
+                if (numeroTarea > 0 && numeroTarea <= tareas.size()) {
+                    seleccionValida = true;
+                } else {
+                    System.out.println("# Número inválido. Intente nuevamente.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("# Error: Debe ingresar un número válido.");
+                scn.nextLine();
+            }
+        }
+
+        SistemaTareas sistema = new SistemaTareas();
+        sistema.actualizarEstadoTarea(scn, numeroTarea, tareas);
+
+        return "# Tarea actualizada exitosamente.";
     }
 }
